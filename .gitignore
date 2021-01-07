@@ -1,5 +1,8 @@
 venv
 
 .DS_Store
+*.log
+
 chromedriver
+
 .idea/workspace.xml
