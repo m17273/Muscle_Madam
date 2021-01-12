@@ -1,18 +1,24 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup as bs
 import requests
+import openpyxl
 import time
 import re
+
+wb = openpyxl.Workbook()
+
+sheet = wb.active
+
+sheet.append(["가게이름", "주소", "번호", "대표메뉴"])
 
 options = webdriver.ChromeOptions()
 # options.add_argument("headless")
 # driver = webdriver.Chrome('./chromedriver.exe', options=options)
 driver = webdriver.Chrome('./chromedriver.exe')
-
 url = "https://www.diningcode.com/list.php?query=외대"
 driver.get(url)
 
-for i in range(10):
+for i in range(9):
     time.sleep(1)
     btn = driver.find_element_by_css_selector("span[class='more-btn']")
     btn.click()
@@ -24,7 +30,7 @@ for li in lis:
         a = li.find_element_by_css_selector("a[class='blink']")
         url = a.get_attribute("href")
         print(url)
-        time.sleep(1)
+        time.sleep(0.5)
 
         res = requests.get(url)
         time.sleep(0.1)
@@ -39,8 +45,10 @@ for li in lis:
             # split후 리스트에 담아주면 됨
         except:
              sign = ""
+
         addr = html.select_one('li.locat').text
         tel = html.select_one('li.tel').text
+
         menu = []
         price = []
         try:
@@ -56,9 +64,24 @@ for li in lis:
             items = list(zip(menu, price))
         except:
             print("no menuInfo")
+
         print(title, addr, tel, sign, sep='\n')
-        for item in items:
-            print(*item)
+
+        # menus = ""
+        # for menu, price in items:
+        #     item = f"{menu} : {price}\n"
+        #     menus += item
+
+        t = title
+        a = addr
+        te = tel
+        s = sign
+        # m = menus
+
+        sheet.append(([t, a, te, s]))
+
 
 driver.close()
 driver.quit()
+
+wb.save("eat.xlsx")
