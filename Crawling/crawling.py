@@ -14,7 +14,7 @@ sheet.append(["가게이름", "주소", "번호", "대표메뉴"])
 options = webdriver.ChromeOptions()
 # options.add_argument("headless")
 # driver = webdriver.Chrome('./chromedriver.exe', options=options)
-driver = webdriver.Chrome('./chromedriver.exe')
+driver = webdriver.Chrome('./chromedriver')
 url = "https://www.diningcode.com/list.php?query=외대"
 driver.get(url)
 
@@ -67,18 +67,19 @@ for li in lis:
 
         print(title, addr, tel, sign, sep='\n')
 
-        # menus = ""
-        # for menu, price in items:
-        #     item = f"{menu} : {price}\n"
-        #     menus += item
+        menus = ""
+        for menu, price in items:
+            item = f"{menu} : {price}\n"
+            menus += item
 
+        print(items)
         t = title
         a = addr
         te = tel
         s = sign
-        # m = menus
+        m = menus
 
-        sheet.append(([t, a, te, s]))
+        sheet.append(([t, a, te, s, m]))
 
 
 driver.close()
