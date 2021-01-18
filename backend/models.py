@@ -1,7 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from .database import Base
+from database import Base
 
 class Category(Base):
     __tablename__ = "categories"
@@ -60,7 +60,7 @@ class Menu(Base):
     category_pk = Column(Integer, ForeignKey("categories.category_pk", ondelete="CASCADE", onupdate="CASCADE"))
     kind_pk = Column(Integer, ForeignKey("kinds.kind_pk", ondelete="CASCADE", onupdate="CASCADE"))
     price_pk = Column(Integer, ForeignKey("ranges.range_pk", ondelete="CASCADE", onupdate="CASCADE"))
-    restaurant_pk = Column(Integer, ForeignKey("restaurants.retaurant_pk", ondelete="CASCADE", onupdate="CASCADE"))
+    restaurant_pk = Column(Integer, ForeignKey("restaurants.restaurant_pk", ondelete="CASCADE", onupdate="CASCADE"))
     menu_name = Column(String(20), nullable=False)
     menu_price = Column(Integer, nullable=False)
     menu_image = Column(String(100))  # 디폴트 이미지 세팅필요

@@ -18,10 +18,10 @@ engine = create_engine(
 
 session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-base = declarative_base()
+Base = declarative_base()
 
 # connection = engine.connect()
-# metadata = db.MetaData()
-# table = db.Table('menus', metadata, autoload=True, autoload_with=engine)
+metadata = db.MetaData()
+table = db.Table('menus', metadata, autoload=True, autoload_with=engine)
 
-# print(table.columns.keys())
+print(table.columns.keys())
