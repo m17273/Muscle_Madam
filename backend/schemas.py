@@ -20,19 +20,6 @@ class Restaurant(BaseModel):
     address: Optional[str] = None
     phone_number: Optional[str] = None
 
-class Menu(BaseModel):
-    menu_pk: int
-    category_pk: int
-    kind_pk: int
-    price_pk: int
-    restaurant_pk: int
-    menu_name: str
-    menu_price: int
-    menu_image: Optional[str] = None
-
-    class Config:
-        orm_mode = True
-
 class Comment(BaseModel):
     comment_pk: int
     editor_pk: int
@@ -51,3 +38,16 @@ class Editor(BaseModel):
     class Config:
         orm_mode = True
 
+class Menu(BaseModel):
+    menu_pk: int
+    category_pk: int
+    kind_pk: int
+    price_pk: int
+    restaurant_pk: int
+    menu_name: str
+    menu_price: int
+    menu_image: Optional[str] = None
+    comments: List[Comment] = []
+
+    class Config:
+        orm_mode = True

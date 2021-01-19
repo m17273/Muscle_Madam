@@ -6,7 +6,8 @@ def get_menus_by_select(
     category_pk: int,
     kind_pk: int,
     price_pk: int):
-    return db.query(models.Menu).filter(models.Menu.category_pk == category_pk, 
+    return db.query(models.Menu).filter(
+    models.Menu.category_pk == category_pk, 
     models.Menu.kind_pk == kind_pk,
     models.Menu.price_pk == price_pk).all()
 

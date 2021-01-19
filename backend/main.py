@@ -31,11 +31,9 @@ def all(db: Session = Depends(get_db)):
 @app.get("/menus/{category_pk}/{kind_pk}/{price_pk}", response_model=List[schemas.Menu])
 def recommend(category_pk: int, kind_pk:int, price_pk:int, db: Session = Depends(get_db)):
     menus = crud.get_menus_by_select(db, category_pk=category_pk, kind_pk=kind_pk, price_pk=price_pk)
-    menus = list(menus)
     if menus is None:
         raise HTTPException(status_code=404)
-    return menus    
-
+    return menus
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8080, reload=True)
