@@ -12,16 +12,6 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="muscle_madam")
 
-### for test ###
-
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
 app.include_router(menu.router, tags=["Menus"])
 
 if __name__ == "__main__":
