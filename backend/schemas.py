@@ -1,4 +1,4 @@
-from backend.models import Category
+from models import Category
 from typing import List, Optional
 
 from pydantic import BaseModel

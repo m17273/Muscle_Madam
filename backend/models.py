@@ -40,7 +40,7 @@ class Editor(Base):
     editor_name = Column(String(30), nullable=False)
     editor_intro = Column(String(100), nullable=False)
 
-    comments = relationship("Comment", primaryjoin="Editor.editor_pk == Comment.editor_pk", backref="editors")
+    comment = relationship("Comment", primaryjoin="Editor.editor_pk == Comment.editor_pk", backref="editors")
 
 
 class Comment(Base):
