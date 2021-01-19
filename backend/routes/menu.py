@@ -3,8 +3,9 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-import models, crud, schemas
-from database import get_db
+# 왠지 모르겠는데 상대경로가 안먹힘...
+from database import crud, schemas
+from database.conn import get_db 
 
 router = APIRouter(prefix='/menus')
 

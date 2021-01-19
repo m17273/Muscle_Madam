@@ -1,4 +1,3 @@
-from models import Category
 from typing import List, Optional
 
 from pydantic import BaseModel
