@@ -31,7 +31,8 @@ class Restaurant(Base):
     retaurant_name = Column(String(20), nullable=False)
     address = Column(String(50))
     phone_number = Column(String(20))
-
+    # menus = relationship("Menu", back_populates="restaurant")
+    
 
 class Editor(Base):
     __tablename__ = "editors"
@@ -67,3 +68,4 @@ class Menu(Base):
     menu_image = Column(String(100))  # 디폴트 이미지 세팅필요
 
     comments = relationship("Comment", primaryjoin="Menu.menu_pk == Comment.menu_pk", backref="menus")
+    # restaurant = relationship("Restaurant", back_populates="menus")

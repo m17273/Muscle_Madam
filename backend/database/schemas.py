@@ -16,6 +16,7 @@ class Range(BaseModel):
 
 class Restaurant(BaseModel):
     restaurant_pk: int
+    restaurant_name: str
     address: Optional[str] = None
     phone_number: Optional[str] = None
 
