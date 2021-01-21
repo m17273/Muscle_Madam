@@ -7,3 +7,5 @@ myvenv
 chromedriver
 
 .idea
+
+secrets.json
