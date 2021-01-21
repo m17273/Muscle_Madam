@@ -12,11 +12,10 @@ def get_comments_per_editor(
 def get_comments_per_menu(
     db: Session,
     menu_id: int):
-    print("##################",models.Comment.menu_pk)
     return db.query(models.Comment).filter(
         models.Comment.menu_pk == menu_id).all()
 
-# def create_comment(
+# def create(
 #     db: Session,
 #     editor_id: int,
 #     menu_id: int,
