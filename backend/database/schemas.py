@@ -33,10 +33,19 @@ class Editor(BaseModel):
     editor_pk: int
     editor_name: str
     editor_intro: str
-    comments: List[Comment] = []
+    comments: Optional[List[Comment]] = []
 
     class Config:
         orm_mode = True
+
+class MenuRequest(BaseModel):
+    category_pk: int
+    kind_pk: int
+    price_pk: int
+    restaurant_pk: int
+    menu_name: str
+    menu_price: int
+    menu_image: Optional[str] = None
 
 class Menu(BaseModel):
     menu_pk: int
@@ -47,7 +56,7 @@ class Menu(BaseModel):
     menu_name: str
     menu_price: int
     menu_image: Optional[str] = None
-    comments: List[Comment] = []
+    comments: Optional[List[Comment]] = []
 
     class Config:
         orm_mode = True

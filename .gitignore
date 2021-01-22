@@ -3,7 +3,7 @@ myvenv
 
 .DS_Store
 *.log
-
-chromedriver
+secrets.json
 
 .idea
+__pycache__
