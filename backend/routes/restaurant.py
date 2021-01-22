@@ -6,3 +6,5 @@ from sqlalchemy.orm import Session
 
 from database import crud, schemas
 from database.conn import get_db 
+
+router = APIRouter(prefix='/restaurants')
