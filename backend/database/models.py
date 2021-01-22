@@ -28,7 +28,7 @@ class Restaurant(Base):
     __tablename__ = "restaurants"
 
     restaurant_pk = Column(Integer, primary_key=True, autoincrement=True)
-    retaurant_name = Column(String(20), nullable=False)
+    restaurant_name = Column(String(20), nullable=False)
     address = Column(String(50))
     phone_number = Column(String(20))
     # menus = relationship("Menu", back_populates="restaurant")

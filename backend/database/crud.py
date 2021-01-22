@@ -5,7 +5,7 @@ from . import models, schemas
 
 # about menu #
 # menu
-def get_menus_by_recommend(
+def get_menus_by_recommendation(
     db: Session,
     categories: List[int],
     kinds: List[int],
@@ -69,18 +69,35 @@ def delete_menu(db: Session, menu_pk: int):
 
 
 # restaurant
-def get_restaurants(db: Session):
-    return db.query(models.Restaurant).all()
-
-def get_restaurant(restaurant_pk: int, db: Session):
+def get_restaurant(db: Session, restaurant_pk: int):
     return db.query(models.Restaurant).filter(models.Restaurant.restaurant_pk == restaurant_pk).first()
 
-def create_restaurant(db: Session):
-    return
+def get_restaurant_by_name(db: Session, restaurant_name: str):
+    return db.query(models.Restaurant).filter(models.Restaurant.restaurant_name == restaurant_name).first()
 
-def update_restaurant(db: Session):
-    return
+def create_restaurant(db: Session, req: schemas.RestaurantRequest):
+    db_rest = models.Restaurant(**req.dict())
+    db.add(db_rest)
+    db.commit()
+    db.refresh(db_rest)
 
-def delete_restaurant(db: Session):
-    return
+    return db_rest
+
+def update_restaurant(db: Session, restaurant_pk: int, req: schemas.RestaurantRequest):
+    db_restaurant = db.query(models.Restaurant).filter(models.Restaurant.restaurant_pk == restaurant_pk).first()
+    req_dict = req.dict()
+    req = {k: v for k,v in req_dict.items()}
+
+    for key, value in req.items():
+        setattr(db_restaurant, key, value)
+    
+    db.commit()
+    db.refresh(db_restaurant)
+
+    return db_restaurant
+
+def delete_restaurant(db: Session, restaurant_pk: int):
+    db_restaurant = db.query(models.Restaurant).filter(models.Restaurant.restaurant_pk == restaurant_pk).first()
+    db.delete(db_restaurant)
+    db.commit()
 # about menu #

@@ -14,11 +14,19 @@ class Range(BaseModel):
     range_pk: int
     price_range: str
 
+class RestaurantRequest(BaseModel):
+    restaurant_name: str
+    address: Optional[str] = None
+    phone_number: Optional[str] = None
+
 class Restaurant(BaseModel):
     restaurant_pk: int
     restaurant_name: str
     address: Optional[str] = None
     phone_number: Optional[str] = None
+
+    class Config:
+        orm_mode = True
 
 class Comment(BaseModel):
     comment_pk: int

@@ -21,7 +21,7 @@ def create_menu(req: schemas.MenuRequest, db: Session = Depends(get_db)):
     if db_menu:
         raise HTTPException(status_code=400)
 
-    menu = crud.create_menu(db=db, req=req)
+    menu = crud.create_menu(db, req)
 
     return menu
 
@@ -32,7 +32,7 @@ def create_menu(req: schemas.MenuRequest, db: Session = Depends(get_db)):
 4. 해당되는 데이터가 없다면 404에러
 '''
 @router.get("/", response_model=List[schemas.Menu])
-def recommend_menus(
+def get_menus(
     categories: str = Query(None),
     kinds: str = Query(None),
     prices: str = Query(None), 
@@ -49,7 +49,7 @@ def recommend_menus(
     except:
         raise HTTPException(status_code=400)
 
-    menus = crud.get_menus_by_recommend(db, categories, kinds, prices)
+    menus = crud.get_menus_by_recommendation(db, categories, kinds, prices)
 
     if menus is None:
         raise HTTPException(status_code=404)
