@@ -28,6 +28,11 @@ class Restaurant(BaseModel):
     class Config:
         orm_mode = True
 
+class CommentRequest(BaseModel):
+    editor_pk: int
+    menu_pk: int
+    content: str
+
 class Comment(BaseModel):
     comment_pk: int
     editor_pk: int
