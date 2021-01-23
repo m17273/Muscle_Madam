@@ -3,9 +3,9 @@ myvenv
 
 .DS_Store
 *.log
-
-chromedriver
+secrets.json
 
 .idea
 
 secrets.json
+__pycache__
