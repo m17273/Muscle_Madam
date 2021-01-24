@@ -17,7 +17,7 @@ def create_menu(req: schemas.MenuRequest, db: Session = Depends(get_db)):
         kind_pk = req.kind_pk,
         price_pk = req.price_pk,
         menu_name = req.menu_name)
-
+    
     if db_menu:
         raise HTTPException(status_code=400)
 
@@ -33,20 +33,16 @@ def create_menu(req: schemas.MenuRequest, db: Session = Depends(get_db)):
 '''
 @router.get("/", response_model=List[schemas.Menu])
 def get_menus(
-    categories: str = Query(None),
-    kinds: str = Query(None),
-    prices: str = Query(None), 
+    categories: List[int] = Query(None),
+    kinds: List[int] = Query(None),
+    prices: List[int] = Query(None), 
     db: Session = Depends(get_db)):
     
     if categories == None and kinds == None and prices == None:
         menus = crud.get_menus(db)
         return menus
 
-    try:
-        categories = list(map(int, categories.split(',')))
-        kinds = list(map(int, kinds.split(',')))
-        prices = list(map(int, prices.split(',')))
-    except:
+    if not categories or not kinds or not prices:
         raise HTTPException(status_code=400)
 
     menus = crud.get_menus_by_recommendation(db, categories, kinds, prices)
