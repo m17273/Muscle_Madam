@@ -15,8 +15,6 @@ $ pip install uvicorn[standard]
 $ python main.py
 ```
 
-<br>
-
 ### Swagger UI (for test)
 
 ```javascript
