@@ -46,7 +46,7 @@ $ python main.py
 ## **API 별 사용법** 📝
 <br>
 
-## Menus API
+### Menus API
 
 1.  **전체 메뉴 조회** (success: 200 / fail: 404)
 
@@ -201,7 +201,7 @@ axios.delete("/menus", {params:{menu_pk:int})
 <hr>
 <br>
 
-## Restaurants API
+### Restaurants API
 1.  **식당 조회** (success: 200 / fail: 404)
 
 - 해당하는 식당이 없으면 404 리턴
@@ -324,7 +324,7 @@ axios.delete("/restaurants", {params:{menu_pk:int})
 <br>
 
 
-## **Comments API**
+### **Comments API**
 <br>
 
 1. **에디터 별 코멘트 조회** (success: 200 / fail: 404)
