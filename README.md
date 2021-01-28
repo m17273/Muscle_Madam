@@ -9,6 +9,27 @@ $ pip install fastapi
 $ pip install uvicorn[standard]
 ```
 
+### Requirements
+
+```python
+# requirements.txt
+click==7.1.2
+colorama==0.4.4
+fastapi==0.63.0
+h11==0.12.0
+pydantic==1.7.3
+PyMySQL==1.0.2
+python-dotenv==0.15.0
+python-multipart==0.0.5
+PyYAML==5.3.1
+six==1.15.0
+SQLAlchemy==1.3.22
+starlette==0.13.6
+uvicorn==0.13.3
+watchgod==0.6
+websockets==8.1
+```
+
 ### Run ###
 
 ```
