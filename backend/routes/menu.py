@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException, Response, File, UploadFile
 from fastapi.param_functions import Query
 from sqlalchemy.orm import Session
 
