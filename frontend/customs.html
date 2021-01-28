@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' type='text/css' href="src/css/custorms.css" />
+
+    <!-- swiper-->
+    <link rel="stylesheet" href="../package/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <img src="src/icons/home.png" alt="home" class="home-icon">
+        <img src="src/icons/back.png" alt="home" class="back-icon">
+    </header>
+
+    <section class="section1">
+
+        <p class="title"> 안심 스테이크</p>
+        <p class="price">₩ 23,000 /인</p>
+
+        <div class="food-comment-container">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">food1</div>
+                    <div class="swiper-slide">food2</div>
+                    <div class="swiper-slide">food3</div>
+                </div>
+            </div>
+            <div class="comments">
+                <div class="testdiv">
+                    <div class="editorimg"
+                        style="width: 43.75px; height: 43.75px; background-color: beige; margin: 0 auto;">
+                    </div>
+                    <p class="comment-editor">chacha</p>
+                    <p class="comment">된장국 도랏차차</p>
+                </div>
+                <div class="testdiv">
+                    <div class="editorimg"
+                        style="width: 43.75px; height: 43.75px; background-color: beige; margin: 0 auto;">
+                    </div>
+                    <p class="comment-editor">parkpark</p>
+                    <p class="comment">유진이 사줘야겠다</p>
+                </div>
+                <div class="testdiv">
+                    <div class="editorimg"
+                        style="width: 43.75px; height: 43.75px; background-color: beige; margin: 0 auto;">
+                    </div>
+                    <p class="comment-editor">parkpark</p>
+                    <p class="comment">유진이 사줘야겠다</p>
+                </div>
+                <div class="testdiv">
+                    <div class="editorimg"
+                        style="width: 43.75px; height: 43.75px; background-color: beige; margin: 0 auto;">
+                    </div>
+                    <p class="comment-editor">parkpark</p>
+                    <p class="comment">유진이 사줘야겠다</p>
+                </div>
+            </div>
+            <p class="comment">샤론스톤 <span style="font-size: 0.625rem; color: #ABABAB; margin-left: 8px;">정문 도보
+                    10분</span></p>
+
+        </div>
+    </section>
+    <script src="../package/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var appendNumber = 4;
+        var swiper = new Swiper(".swiper-container", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="5" viewBox="0 0 27 5">
+  <g id="Group_220" data-name="Group 220" transform="translate(-229.212 -488.967)">
+    <g id="Ellipse_56" data-name="Ellipse 56" transform="translate(229.212 488.967)" fill="#111" stroke="#111" stroke-width="1.5">
+      <ellipse cx="2.5" cy="2.5" rx="2.5" ry="2.5" stroke="none"/>
+      <ellipse cx="2.5" cy="2.5" rx="1.75" ry="1.75" fill="none"/>
+    </g>
+    <g id="Ellipse_57" data-name="Ellipse 57" transform="translate(240.212 488.967)" fill="#111" stroke="#111" stroke-width="1.5">
+      <ellipse cx="2.5" cy="2.5" rx="2.5" ry="2.5" stroke="none"/>
+      <ellipse cx="2.5" cy="2.5" rx="1.75" ry="1.75" fill="none"/>
+    </g>
+    <g id="Ellipse_58" data-name="Ellipse 58" transform="translate(251.212 488.967)" fill="#111" stroke="#111" stroke-width="1.5">
+      <ellipse cx="2.5" cy="2.5" rx="2.5" ry="2.5" stroke="none"/>
+      <ellipse cx="2.5" cy="2.5" rx="1.75" ry="1.75" fill="none"/>
+    </g>
+  </g>
+</svg>

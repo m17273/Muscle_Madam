@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="32" viewBox="0 0 96 32">
+  <g id="Group_258" data-name="Group 258" transform="translate(-72 -672)">
+    <rect id="Rectangle_81" data-name="Rectangle 81" width="96" height="32" rx="5" transform="translate(72 672)" fill="#f3f3f4"/>
+    <g id="maps-and-flags" transform="translate(20.427 682)">
+      <g id="Group_255" data-name="Group 255" transform="translate(70.573)">
+        <path id="Path_196" data-name="Path 196" d="M75.281,0a4.713,4.713,0,0,0-4.708,4.708c0,3.222,4.213,7.952,4.393,8.151a.424.424,0,0,0,.631,0c.179-.2,4.393-4.93,4.393-8.151A4.713,4.713,0,0,0,75.281,0Zm0,7.077A2.369,2.369,0,1,1,77.65,4.708,2.371,2.371,0,0,1,75.281,7.077Z" transform="translate(-70.573 0)" fill="#646464"/>
+      </g>
+    </g>
+    <text id="네이버지도" transform="translate(105 692)" fill="#646464" font-size="10" font-family="AppleSDGothicNeo-Bold, Apple SD Gothic Neo" font-weight="700" letter-spacing="0.03em"><tspan x="0" y="0">네이버지도</tspan></text>
+  </g>
+</svg>
