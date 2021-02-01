@@ -72,6 +72,7 @@ $ python main.py
 1.  **전체 메뉴 조회** (success: 200 / fail: 404)
 
 - 해당하는 메뉴가 없으면 404 리턴
+- **해당하는 메뉴들이 리스트 안에 담겨서 반환**
 
 ```javascript
 /menus/
@@ -101,6 +102,7 @@ axios.get("/menus")
 
 
 - 해당하는 메뉴가 없으면 404 리턴
+- **해당하는 메뉴들이 리스트 안에 담겨서 반환**
 
 ```javascript
 /menus/?categores={category_pk}&...&kinds={kind_pk}&...&prices={price_pk}
@@ -137,6 +139,7 @@ axios.get("/menus", {params:{categories:List[int], kinds:List[int], prices:List[
 `데이터 형식`
 
 ```javascript
+// form형식으로 보내야 함, menu_pk 필요없음
 {
   "category_pk": 0,
   "kind_pk": 0,
@@ -175,6 +178,24 @@ axios.post("/menus", {data:data})
 ```javascript
 /menus/{menu_pk}
 ```
+
+`데이터 형식`
+
+```javascript
+// form형식으로 보내야 함
+{
+  "menu_pk": 0,
+  "category_pk": 0, 
+  "kind_pk": 0,
+  "price_pk": 0,
+  "restaurant_pk": 0,
+  "menu_name": "string",
+  "menu_price": 0,
+  "menu_image": "string"
+}
+```
+
+`사용예제 - ajax`
 
 `사용예제 - ajax`
 
@@ -228,7 +249,7 @@ axios.delete("/menus", {params:{menu_pk:int})
 - 해당하는 식당이 없으면 404 리턴
 
 ```javascript
-/restaurants/{restaurant_pk}
+/restaurants/?{restaurant_pk}
 ```
 `사용예제 - ajax`
 
@@ -430,9 +451,9 @@ $.ajax({
 <hr>
 <br>
 
-4. **코멘트 삭제** (success: 204 / fail: 404)
+5. **코멘트 삭제** (success: 204 / fail: 404)
 
-    status code 404의 경우, comment_id에 해당하는 코멘트가 존재하지 않음.
+status code 404의 경우, comment_id에 해당하는 코멘트가 존재하지 않음.
 
 ```javascript
 /comments/{comment_id}
@@ -446,3 +467,173 @@ $.ajax({
     ...
 })
 ```
+
+<hr>
+
+<br>
+
+### Editors API
+
+1. **전체 에디터 조회** (success: 200 / fail: 404)
+
+- 에디터가 하나도 없으면 404 리턴
+- **해당하는 에디터들이 리스트에 담겨서 반환**
+
+```javascript
+/editors/
+```
+
+`사용예제 - ajax`
+
+```javascript
+$.ajax({
+    url: "/editors",
+    type: "GET",
+    ...
+})
+```
+
+`사용예제 - axios`
+
+```javascript
+axios.get("/editors")
+```
+
+<hr>
+<br>
+
+2. **특정 에디터 조회** (success: 200 / fail: 404)
+
+- 해당하는 에디터가 없으면 404 리턴
+- **해당하는 에디터들이 리스트에 담겨서 반환**
+
+```javascript
+/editors/?editor_pk={editor_pk}
+```
+
+`사용예제 - ajax`
+
+```javascript
+$.ajax({
+    url: "/menus/?editor=1",
+    type: "GET",
+    ...
+})
+```
+
+`사용예제 - axios`
+
+```javascript
+axios.get("/menus", {params:{editor_pk: int}})
+```
+
+<hr>
+<br>
+
+3. **에디터 생성** (success: 200 / fail: 400 or 422)
+
+- 동일한 메뉴가 존재하면 400 리턴
+- 데이터 형식 안 맞으면 422 리턴
+
+```javascript
+/editors/
+```
+
+`데이터 형식`
+
+```javascript
+// form형식으로 보내야 함, editor_pk 필요없음
+{ 
+  "editor_name": "string",
+  "editor_intro": "string",
+  "editor_image": "string",
+  "comments": []
+}
+```
+
+`사용예제 - ajax`
+
+```javascript
+$.ajax({
+    url: "/editors",
+    type: "POST",
+    ...
+})
+```
+
+`사용예제 - axios`
+
+```javascript
+axios.post("/editors", {data:data})
+```
+
+<hr>
+<br>
+
+4. **메뉴 업데이트** (success: 200 / fail: 404 or 422) 
+
+- 동일한 메뉴가 존재하면 400 리턴
+- 데이터 형식 안 맞으면 422 리턴
+
+```javascript
+/editors/
+```
+
+`데이터 형식`
+
+```javascript
+// form형식으로 보내야 함
+{ 
+  "editor_pk": 0,
+  "editor_name": "string",
+  "editor_intro": "string",
+  "editor_image": "string",
+  "comments": []
+}
+```
+
+`사용예제 - ajax`
+
+```javascript
+$.ajax({
+    url: "/editors",
+    type: "PUT",
+    ...
+})
+```
+
+`사용예제 - axios`
+
+```javascript
+axios.put("/editors", {data:data})
+```
+
+<hr>
+<br>
+
+1. **메뉴 삭제** (success: 204 / fail: 404)
+
+- 해당하는 에디터가 존재하지 않으면 404 리턴
+
+```javascript
+/editors/{editor_pk}
+```
+
+`사용예제 - ajax`
+
+```javascript
+$.ajax({
+    url: "/editors/1",
+    type: "DELETE",
+    ...
+})
+```
+
+`사용예제 - axios`
+
+```javascript
+axios.delete("/menus", {params:{editor_pk:int})
+```
+
+<hr>
+<br>
