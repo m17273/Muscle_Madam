@@ -24,7 +24,7 @@ async def create_menu(
     restaurant_pk: int = Form(...),
     menu_name: str = Form(...),
     menu_price: int = Form(...),
-    menu_image: UploadFile = File(...),
+    menu_image: UploadFile = File(None),
     db: Session = Depends(get_db)):
 
     db_menu = crud.get_menu_by_select(
@@ -34,17 +34,15 @@ async def create_menu(
         price_pk = price_pk,
         menu_name = menu_name)
     
-    if db_menu:
+    if db_menu: # 중복된 이름의 메뉴가 존재하면 400 반환
         raise HTTPException(status_code=400)
     
     server_path = ''
-
-    if menu_image != None:
+    
+    if menu_image != None: # 사진이 존재한다면
         local_path = os.path.join(IMG_DIR, 'images/', menu_image.filename)
-
         with open(local_path, 'wb') as buffer:
             shutil.copyfileobj(menu_image.file, buffer)
-
         server_path = os.path.join(SERVER_IMG_DIR, 'images/', menu_image.filename)
 
     req = schemas.MenuRequest(
@@ -82,13 +80,42 @@ def get_menus(
         raise HTTPException(status_code=404)
     return menus
 
-@router.put("/{menu_pk}", response_model=schemas.Menu)
-def update_menu(menu_pk: int, req: schemas.MenuRequest, db: Session = Depends(get_db)):
+@router.put("/", response_model=schemas.Menu)
+async def update_menu(
+    menu_pk: int = Form(...),
+    category_pk: int = Form(...),
+    kind_pk: int = Form(...),
+    price_pk: int = Form(...),
+    restaurant_pk: int = Form(...),
+    menu_name: str = Form(...),
+    menu_price: int = Form(...),
+    menu_image: UploadFile = File(None),
+    db: Session = Depends(get_db)):
+
     menu = crud.get_menu(db, menu_pk)
 
     if menu is None:
         raise HTTPException(status_code=404)
     
+    server_path = ''
+    
+    if menu_image != None: # 사진이 존재한다면
+        local_path = os.path.join(IMG_DIR, 'images/', menu_image.filename)
+        with open(local_path, 'wb') as buffer:
+            shutil.copyfileobj(menu_image.file, buffer)
+        server_path = os.path.join(SERVER_IMG_DIR, 'images/', menu_image.filename)
+
+    req = schemas.Menu(
+    menu_pk = menu_pk,
+    category_pk = category_pk,
+    kind_pk = kind_pk,
+    price_pk = price_pk,
+    restaurant_pk = restaurant_pk,
+    menu_name = menu_name,
+    menu_price = menu_price,
+    menu_image = server_path,
+    )
+
     menu = crud.update_menu(db, menu_pk, req)
 
     return menu

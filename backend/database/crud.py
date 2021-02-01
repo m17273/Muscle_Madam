@@ -3,7 +3,6 @@ from typing import List
 from sqlalchemy.orm import Session
 from . import models, schemas
 
-# about menu #
 # menu
 def get_menus_by_recommendation(
     db: Session,
@@ -100,4 +99,39 @@ def delete_restaurant(db: Session, restaurant_pk: int):
     db_restaurant = db.query(models.Restaurant).filter(models.Restaurant.restaurant_pk == restaurant_pk).first()
     db.delete(db_restaurant)
     db.commit()
-# about menu #
+
+# editor
+def get_editor(db: Session, editor_pk: int):
+    return db.query(models.Editor).filter(models.Editor.editor_pk == editor_pk).first()
+
+def get_editor_by_name(db: Session, editor_name: str):
+    return db.query(models.Editor).filter(models.Editor.editor_name == editor_name).first()
+
+def get_editors(db: Session):
+    return db.query(models.Editor).all()
+
+def create_editor(db: Session, req: schemas.EditorRequest):
+    db_rest = models.Editor(**req.dict())
+    db.add(db_rest)
+    db.commit()
+    db.refresh(db_rest)
+
+    return db_rest
+
+def update_editor(db: Session, editor_pk: int, req: schemas.EditorRequest):
+    db_editor = db.query(models.Editor).filter(models.Editor.editor_pk == editor_pk).first()
+    req_dict = req.dict()
+    req = {k: v for k,v in req_dict.items()}
+
+    for key, value in req.items():
+        setattr(db_editor, key, value)
+    
+    db.commit()
+    db.refresh(db_editor)
+
+    return db_editor
+
+def delete_editor(db: Session, editor_pk: int):
+    db_editor = db.query(models.Editor).filter(models.Editor.editor_pk == editor_pk).first()
+    db.delete(db_editor)
+    db.commit()

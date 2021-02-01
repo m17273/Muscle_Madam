@@ -40,6 +40,7 @@ class Editor(Base):
     editor_pk = Column(Integer, primary_key=True, autoincrement=True)
     editor_name = Column(String(30), nullable=False)
     editor_intro = Column(String(100), nullable=False)
+    editor_image = Column(String(100))
 
     comment = relationship("Comment", primaryjoin="Editor.editor_pk == Comment.editor_pk", backref="editors")
 
@@ -65,7 +66,6 @@ class Menu(Base):
     restaurant_pk = Column(Integer, ForeignKey("restaurants.restaurant_pk", ondelete="CASCADE", onupdate="CASCADE"))
     menu_name = Column(String(20), nullable=False)
     menu_price = Column(Integer, nullable=False)
-    menu_image = Column(String(100))  # 디폴트 이미지 세팅필요
+    menu_image = Column(String(100))
 
     comments = relationship("Comment", primaryjoin="Menu.menu_pk == Comment.menu_pk", backref="menus")
-    # restaurant = relationship("Restaurant", back_populates="menus")
