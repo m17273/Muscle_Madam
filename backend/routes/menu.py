@@ -1,6 +1,9 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, Response
+import shutil
+import os
+
+from fastapi import APIRouter, Depends, HTTPException, Response, File, UploadFile, Form
 from fastapi.param_functions import Query
 from sqlalchemy.orm import Session
 
@@ -9,28 +12,54 @@ from database.conn import get_db
 
 router = APIRouter(prefix='/menus')
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+IMG_DIR = os.path.join(BASE_DIR, 'static/')
+SERVER_IMG_DIR = os.path.join('http://localhost:8080/', 'static/')
+
 @router.post("/", response_model=schemas.Menu)
-def create_menu(req: schemas.MenuRequest, db: Session = Depends(get_db)):
+async def create_menu(
+    category_pk: int = Form(...),
+    kind_pk: int = Form(...),
+    price_pk: int = Form(...),
+    restaurant_pk: int = Form(...),
+    menu_name: str = Form(...),
+    menu_price: int = Form(...),
+    menu_image: UploadFile = File(None),
+    db: Session = Depends(get_db)):
+
     db_menu = crud.get_menu_by_select(
         db,
-        category_pk = req.category_pk,
-        kind_pk = req.kind_pk,
-        price_pk = req.price_pk,
-        menu_name = req.menu_name)
+        category_pk = category_pk,
+        kind_pk = kind_pk,
+        price_pk = price_pk,
+        menu_name = menu_name)
     
-    if db_menu:
+    if db_menu: # 중복된 이름의 메뉴가 존재하면 400 반환
         raise HTTPException(status_code=400)
+    
+    server_path = ''
+    
+    if menu_image != None: # 사진이 존재한다면
+        local_path = os.path.join(IMG_DIR, 'images/', menu_image.filename)
+        with open(local_path, 'wb') as buffer:
+            shutil.copyfileobj(menu_image.file, buffer)
+        server_path = os.path.join(SERVER_IMG_DIR, 'images/', menu_image.filename)
+
+    req = schemas.MenuRequest(
+    category_pk = category_pk,
+    kind_pk = kind_pk,
+    price_pk = price_pk,
+    restaurant_pk = restaurant_pk,
+    menu_name = menu_name,
+    menu_price = menu_price,
+    menu_image = server_path,
+    )
 
     menu = crud.create_menu(db, req)
 
     return menu
 
-'''
-1. params == None이면 모든 메뉴 반환
-2. categories, kinds, prices가 모두 정상적으로 전달되면 200(OK)
-3. 만약 하나라도 누락된다면 400에러
-4. 해당되는 데이터가 없다면 404에러
-'''
+
 @router.get("/", response_model=List[schemas.Menu])
 def get_menus(
     categories: List[int] = Query(None),
@@ -51,13 +80,42 @@ def get_menus(
         raise HTTPException(status_code=404)
     return menus
 
-@router.put("/{menu_pk}", response_model=schemas.Menu)
-def update_menu(menu_pk: int, req: schemas.MenuRequest, db: Session = Depends(get_db)):
+@router.put("/", response_model=schemas.Menu)
+async def update_menu(
+    menu_pk: int = Form(...),
+    category_pk: int = Form(...),
+    kind_pk: int = Form(...),
+    price_pk: int = Form(...),
+    restaurant_pk: int = Form(...),
+    menu_name: str = Form(...),
+    menu_price: int = Form(...),
+    menu_image: UploadFile = File(None),
+    db: Session = Depends(get_db)):
+
     menu = crud.get_menu(db, menu_pk)
 
     if menu is None:
         raise HTTPException(status_code=404)
     
+    server_path = ''
+    
+    if menu_image != None: # 사진이 존재한다면
+        local_path = os.path.join(IMG_DIR, 'images/', menu_image.filename)
+        with open(local_path, 'wb') as buffer:
+            shutil.copyfileobj(menu_image.file, buffer)
+        server_path = os.path.join(SERVER_IMG_DIR, 'images/', menu_image.filename)
+
+    req = schemas.Menu(
+    menu_pk = menu_pk,
+    category_pk = category_pk,
+    kind_pk = kind_pk,
+    price_pk = price_pk,
+    restaurant_pk = restaurant_pk,
+    menu_name = menu_name,
+    menu_price = menu_price,
+    menu_image = server_path,
+    )
+
     menu = crud.update_menu(db, menu_pk, req)
 
     return menu

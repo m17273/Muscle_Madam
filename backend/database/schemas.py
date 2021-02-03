@@ -42,10 +42,16 @@ class Comment(BaseModel):
     class Config:
         orm_mode = True
 
+class EditorRequest(BaseModel):
+    editor_name: str
+    editor_intro: str
+    editor_image: str
+    
 class Editor(BaseModel):
     editor_pk: int
     editor_name: str
     editor_intro: str
+    editor_image: str
     comments: Optional[List[Comment]] = []
 
     class Config:

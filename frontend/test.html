@@ -12,17 +12,47 @@
       name="format-detection"
       content="telephone=no, address=no, email=no"
     />
+    <!-- 북마크 추가시 바탕화면에서 볼수있는 아이콘 이미지(png저장) -->
+    <link rel="apple-touch-icon" href="이미지경로.png" />
+    <link rel=“stylesheet” href=“https://use.typekit.net/hgf0iyy.css”>
+    <link rel="stylesheet" href="css/styles.css" />
+
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="../package/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
+
+    <!-- swiper JS-->
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <style>
+    header {
+      width: 100%;
+      height: 82.8px;
+      position: relative;
+    }
+    #home-icon {
+      position: absolute;
+      top: 60px;
+      right: 34.79px;
+      width: 23.42px;
+      height: 22.8px;
+    }
+    #title > p {
+      font-size: 30px;
+      margin-top: 85px;
+      text-align: center;
+    }
     /* swiper */
     html,
     body {
@@ -40,7 +70,7 @@
       height: 303.5px;
       width: 303.5px;
       display: block;
-      margin: 0 auto;
+      margin: 22px auto;
       border-radius: 5px;
       border: 1px solid black;
     }
@@ -54,7 +84,7 @@
     .swiper-slide {
       text-align: center;
       font-size: 18px;
-      background: #fff;
+      background: blue;
 
       /* Center slide text vertically */
       display: -webkit-box;
@@ -70,10 +100,56 @@
       -webkit-align-items: center;
       align-items: center;
     }
-
+    #menu-title {
+      margin-top: 50px;
+      position: relative;
+    }
+    #menu-title-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #menu-title-image {
+      width: 100%;
+      height: 70px;
+    }
+    #editor {
+      margin-top: 44px;
+      text-align: center;
+    }
+    #editor > img {
+      width: 43.75px;
+      height: 48.38px;
+    }
+    #editor > p {
+      font-size: 10px;
+      letter-spacing: 0.6px;
+    }
   </style>
   <body>
-
+    <section id="header-section">
+      <img src="images/홈아이콘.png" alt="home" id="home-icon" />
+    </section>
+    <div id="title">
+      <p>random</p>
+    </div>
+    <div id="menu-title">
+      <div id="menu-title-image">
+        <img
+          style="display: block; margin: 0 auto"
+          src="src/icons/빈원_long.png"
+          alt=""
+        />
+      </div>
+      <div id="menu-title-text">
+        <h2 id="name" style="text-align: center; font-size: 18px"></h2>
+        <h3
+          id="price"
+          style="font-size: 11px; color: #707070; margin-top: 10px"
+        ></h3>
+      </div>
+    </div>
     <!-- Swiper -->
     <div id="background">
       <div class="swiper-container">
@@ -95,12 +171,11 @@
     </div>
 
     <!-- Swiper JS -->
-    <script src="../package/swiper-bundle.min.js"></script>
 
     <!-- Initialize Swiper -->
     <script>
-      var appendNumber = 4;
-      var swiper = new Swiper(".swiper-container", {
+      let appendNumber = 4;
+      const swiper = new Swiper(".swiper-container", {
         slidesPerView: 1,
         spaceBetween: 30,
         loop: true,
@@ -108,11 +183,58 @@
           el: ".swiper-pagination",
           clickable: true,
         },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
       });
+
+      let titlePrice = document.getElementById("price");
+      let titleName = document.getElementById("name");
+      let titleList = document.getElementById("background");
+
+      let swipecontainer = document.querySelector('.swiper-container');
+      let pageX = swipecontainer.getBoundingClientRect().x;
+      let pageY = swipecontainer.getBoundingClientRect().y;
+      
+      let currentSlideIndex;
+
+      swipecontainer.addEventListener('mouseover', ()=> {
+        getTitleSlide();
+      }, false)
+
+      function xmlRequest() {
+        let request = new XMLHttpRequest();
+        request.open("GET", "title.json", true);
+        request.responseType = "json";
+        request.send();
+        request.onload = function () {
+          changeTitle(request.response);
+        };
+      }
+      function changeTitle(json) {
+        console.log('d');
+        getTitleSlide();
+        // let titles = json["title"];
+        // for (let i in titles) {
+        //   if (titles[i]["name"] === target.dataset.name) {
+        //     titleNameChange(titles[i]["restaurantName"]);
+        //     titlePriceChange(titles[i]["price"]);
+        //   }
+        // }
+      }
+      function titleNameChange(name) {
+        titleName.innerText = name;
+      }
+      function titlePriceChange(price) {
+        titlePrice.innerText = price;
+      }
+      function getTitleSlide() {
+        let titleslide = document.elementFromPoint(pageX, pageY);
+        currentSlideIndex = titleslide.dataset.swiperSlideIndex;
+        
+        console.log(titleslide.dataset.swiperSlideIndex);
+        console.log(currentSlideIndex);
+      }
+      xmlRequest()
+
+
     </script>
   </body>
 </html>
