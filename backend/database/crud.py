@@ -102,8 +102,8 @@ def delete_restaurant(db: Session, restaurant_pk: int):
 
 # editor
 def get_editor(db: Session, editor_pk: int):
-    return db.query(models.Editor).filter(models.Editor.editor_pk == editor_pk).first()
-
+    return db.query(models.Editor).filter(models.Editor.editor_pk == editor_pk).all()
+    
 def get_editor_by_name(db: Session, editor_name: str):
     return db.query(models.Editor).filter(models.Editor.editor_name == editor_name).first()
 
